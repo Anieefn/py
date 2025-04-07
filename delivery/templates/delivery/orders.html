@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'delivery/order.css' %}">
+    <title>Order Summary</title>
+</head>
+<body>
+    <div>
+        <h1>Thank you for your order, {{ p.username }}!</h1>
+        <h1>you will recive a mail to, {{ p.email }}!</h1>
+
+
+        <h2>Delivery Address</h2>
+        <p>{{ p.address }}</p>
+    
+        <p>Your order will be delivered to this location shortly. Thank you for choosing Onestop!</p>
+        <a href="{% url 'home' p.id %}"  class="back-home">Back to home</a>
+    </div>
+    
+</body>
+</html>

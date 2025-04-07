@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Grid</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'delivery/style.css' %}">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="nav-logo">
+                <img src="{% static 'delivery/logo.png' %}" alt="NB Logo" class="logo">
+            </div>
+    
+    
+            <div class="nav-center">
+                <a href="{% url 'home' u.id %}" class="nav-link">Home</a>
+                <a href="{% url 'home_by_category' u.id 'shirt' %}" class="nav-link">Shirts</a>
+                <a href="{% url 'home_by_category' u.id 'pants' %}" class="nav-link">Pants</a>
+                <a href="{% url 'home_by_category' u.id 'accessories' %}" class="nav-link">Accessories</a>
+            </div>   
+            <div class="nav-right">
+                <a href="{% url 'update_cus' u.id %}" class="nav-link">Profile</a>
+                <a href="{% url 'orders' u.id %}" class="nav-link">Orders</a>
+                <a href="#" class="nav-link">Log out</a>
+            </div>    
+        </nav>
+    </header>
+    <div class="cards-wrapper">
+        {% for p in post %}
+        <div class="post-container">
+            <img src="{{p.picture}}" alt="{{p.name}}">
+            <div>
+                <h2 class="product-name">{{p.name}}</h2>
+                <p class="product-bio">{{p.bio}}</p>
+                <p class="product-category"><strong>Category:</strong> {{p.catagery}}</p>
+                <p class="product-price">
+                    <span class="original-price">₹{{p.price}}</span>
+                    <span class="discount-price">₹{{p.discount_price}}</span>
+                </p>
+                <p class="product-discount">Save {{p.discount}}%!</p>
+                <form method="post" action="{% url 'add_to_cart' p.id u.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="add-to-cart-button">Add to Cart</button>
+                </form>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <footer class="footer">
+        <div class="footer-content">
+            <p>© 2025 My Store | Designed with ❤️ by Your Team And NB</p>
+            <ul class="footer-links">
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Terms of Service</a></li>
+                <li><a href="#">Contact Us</a></li>
+            </ul>
+        </div>
+    </footer>    
+</body>
+</html>

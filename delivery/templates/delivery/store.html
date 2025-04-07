@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>store Management</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'delivery/admin.css' %}">
+    <script src="{% static 'delivery/de.js' %}"></script>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="nav-logo">
+                <img src="{% static 'delivery/logo.png' %}" alt="NB Logo" class="logo">
+            </div>  
+            <div class="nav-right">
+                <a href="#" class="nav-link">Log out</a>
+            </div>    
+        </nav>
+    </header>
+    <form method="post" action="{% url 'stock_view' p.id %}">
+        {% csrf_token %}
+        <label>Name: </label>
+        <input type="text" name="name" required placeholder="Enter the product name">
+        <label>Discription: </label>
+        <input type="text" name="bio" required placeholder="Enter about your probuct">
+        <label>Image url: </label>
+        <input type="url" name="picture" required placeholder="Enter your image url">
+        <label>Price: </label>
+        <input type="text" name="price" required placeholder="Enter the price">
+        <label>Discount: </label>
+        <input type="text" name="discount" required placeholder="If there is no discount enter 0">
+        <select name="catagery">select catagery
+            <option value="shirt">Shirt</option>
+            <option value="pants">Pants</option>
+            <option value="accessories">Accessories</option>
+        </select>
+        <button type="submit" onclick="avoid_default(event)"> submit</button>
+    </form>
+    {% if error_message %}
+    <p style="color: red;">{{ error_message }}</p>
+    {% endif %}
+    <table border="1">
+        <tr>
+            <th>Id</th>
+            <th>Product Name</th>
+            <th>Image</th>
+            <th>bio</th>
+            <th>Product price</th>
+            <th>Discount</th>
+            <th>Catagery</th>
+            <th>Final price</th>
+            <th>Update/Delete</th>
+        </tr>
+        {% for p in post%}
+        <tr>
+          <td>{{p.id}}</td>
+          <td>{{p.name}}</td>
+          <td> <img src="{{p.picture}}" alt="{{p.name}}" width="100">
+          <td>{{p.bio}}</td>
+          <td>{{p.price}}</td>
+          <td>{{p.discount}}</td>
+          <td>{{p.catagery}}</td>
+          <td>{{p.discount_price}}</td>
+          <td><a href="{% url 'update_stock' userid=p.userId.id pid=p.id %}">Update</a>
+            <a href="{% url 'delete_user' userid=p.userId.id pid=p.id %}">Delete</a>
+          </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <footer class="footer">
+        <div class="footer-content">
+            <p>© 2025 My Store | Designed with ❤️ by Your Team And NB</p>
+            <ul class="footer-links">
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Terms of Service</a></li>
+                <li><a href="#">Contact Us</a></li>
+            </ul>
+        </div>
+    </footer>    
+</body>
+</html>
