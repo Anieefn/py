@@ -1,3 +1,15 @@
+"""
+This script is used for sending SMS notifications to users using the Twilio API.
+It contains functionality for sending a password reset confirmation message
+to a specified phone number.
+
+The main components:
+- `settings`: Used to retrieve Twilio
+ configuration details (account SID, 
+ auth token, and phone number).
+- `send_sms`: Defines the logic for composing and sending SMS messages.
+- Handles errors gracefully, ensuring that database integrity issues (if any) are captured.
+"""
 from django.conf import settings
 from django.db import IntegrityError
 from twilio.rest import Client
