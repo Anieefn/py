@@ -41,7 +41,7 @@
             "handler": function (response) {
                 alert("Payment Successful!");
                 // Redirect to the orders page
-                window.location.href = "{% url 'orderss' p %}";
+                window.location.href = "{% url 'orderss' p.id %}";
             },
             "prefill": {
                 "name": "{{ p.username }}",

@@ -2,7 +2,7 @@ from django.conf import settings
 from django.db import IntegrityError
 from twilio.rest import Client
 
-def sendSms(to, username):
+def send_sms(to, username):
     """
     Sends an SMS to the specified phone number.
     The message can be customized when calling the function.

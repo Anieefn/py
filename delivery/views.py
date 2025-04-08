@@ -11,7 +11,7 @@ from django.core.mail import send_mail
 from django.db import IntegrityError
 from django.shortcuts import get_object_or_404, render, redirect
 from django.utils.timezone import now
-from delivery.sms_conform import sendSms
+from delivery.sms_conform import send_sms
 
 from .models import Register, Posts, Cart, Otp, CartItem  # Local imports
 
@@ -142,7 +142,8 @@ def update_stock(request, userid, pid):
              'delivery/update_stock.html',
              {'u': u, 'p': p,
              "error_message": error_message})
-    return render(request, 'delivery/update_stock.html', {'u': u, 'p': p})
+    post = Posts.objects.filter(id=pid).filter()  # pylint: disable=no-member
+    return render(request, 'delivery/update_stock.html', {'u': u, 'p': p, 'post':post})
 
 
 # Delete post
@@ -306,7 +307,7 @@ def orderss(request, userid):
           Thanks again for choosing us – we can't wait for you to enjoy your purchase!  
 
           Warm regards,  
-          **[Your Company Name]**  
+          **N's store**  
           """
 
         recipient = p.email
@@ -372,7 +373,7 @@ def verify_otp_and_reset_password(request):
                 user.save()
                 # Delete the OTP object for security
                 otp_obj.delete()
-                sendSms(user.phonenumber, user.username)
+                send_sms(user.phonenumber, user.username)
                 return render(request,
                  "delivery/login.html",
                  {"success":
