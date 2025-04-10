@@ -4,11 +4,6 @@ for the Delivery application.
 """
 from django.apps import AppConfig
 
-
-"""
-The modules are necessary to manage the apps
-and configure correctiy
-"""
 class DeliveryConfig(AppConfig):
     """
     Configuration class for the 'delivery' application.

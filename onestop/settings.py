@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -25,7 +26,7 @@ SECRET_KEY = 'django-insecure-i-cmg1w2tj9dvph30e)mdd%d20an8&@&ulplpvz@sy!%_#z*a=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -74,16 +75,18 @@ WSGI_APPLICATION = 'onestop.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'onestop2',
-        'USER': 'root',
-        'PASSWORD': 'root',
-        'PORT': 3306,
-        'HOST':'127.0.0.1',
+        'NAME': os.getenv('MYSQL_DATABASE', 'onestop2'),
+        'USER': os.getenv('DATABASE_USERNAME', 'root'),
+        'PASSWORD': os.getenv('DATABASE_PASSWORD', 'root123@123'),
+        'HOST': os.getenv('DATABASE_HOST', 'mysql'),
+        'PORT': os.getenv('DATABASE_PORT', '3306'),
     }
 }
+
 
 
 # Password validation
@@ -121,7 +124,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 
 # Default primary key field type
@@ -129,8 +132,8 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-RAZORPAY_KEY_ID = 'rzp_test_3Ltggti9AbnGAe'
-RAZORPAY_KEY_SECRET = 'a5j4ZNLpvnImQY9KuNEd12Oc'
+RAZORPAY_KEY_ID = 'rzp_test_wRSEWv3TpM7fQy'
+RAZORPAY_KEY_SECRET = 'CkqETwwL85SWW4UrpNI8FkU0'
 
 # SMTP for email
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

@@ -24,4 +24,5 @@ urlpatterns = [
           name="verify_otp_and_reset_password"),
     path('cart/dec_quantity/<int:cartid>/', views.decrese_quantity, name='decrese_quantity'),
     path('cart/increase_quantity/<int:cartid>/', views.increse_quantity, name='increase_quantity'),
+    path('logout/', views.logout, name='logout'),
 ]

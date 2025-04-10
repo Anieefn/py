@@ -11,12 +11,9 @@ from django.core.mail import send_mail
 from django.db import IntegrityError
 from django.shortcuts import get_object_or_404, render, redirect
 from django.utils.timezone import now
+from django.contrib.sessions.models import Session
 from delivery.sms_conform import send_sms
-
 from .models import Register, Posts, Cart, Otp, CartItem  # Local imports
-
-
-
 
 # Create your views here.
 
@@ -415,3 +412,16 @@ def decrese_quantity(request, cartid):
             p.delete()
         return redirect('orders', userid=p.cart.customer.id)
     return redirect('orders', userid=p.cart.customer.id)
+
+def logout(request):
+    """
+    Logout view to delete all active sessions and redirect to the login page.
+
+    This view deletes all session objects, effectively logging out all users.
+    It then redirects the client to the login page.
+    """
+    # Delete all session objects
+    Session.objects.all().delete()
+
+    # Redirect to the login page
+    return redirect('handle_login')  # Replace 'login' with the name of your login URL pattern

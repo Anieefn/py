@@ -24,7 +24,7 @@
             <div class="nav-right">
                 <a href="{% url 'update_cus' u.id %}" class="nav-link">Profile</a>
                 <a href="{% url 'orders' u.id %}" class="nav-link">Orders</a>
-                <a href="#" class="nav-link">Log out</a>
+                <a href="{% url 'logout' %}" class="nav-link">Log out</a>
             </div>    
         </nav>
     </header>

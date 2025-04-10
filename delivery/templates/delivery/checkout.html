@@ -27,7 +27,7 @@
 
     <button id="rzp-button">Pay with Razorpay</button>
 
-    <a href="{% url 'home' p.id %}"  class="back-home">Back to home</a>
+    <a href="{% url 'home' p.id %}" id="home-button" class="back-home">Back to home</a>
     {% endif %}
 
     <script>
@@ -45,8 +45,6 @@
             },
             "prefill": {
                 "name": "{{ p.username }}",
-                "email": "{{ p.email }}",
-                "contact": "{{ p.phonenumber }}"
             },
             "theme": {
                 "color": "#528FF0"
