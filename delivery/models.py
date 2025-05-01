@@ -92,5 +92,14 @@ class Otp(models.Model):
         """
         return now() <= self.otp_created_at + timedelta(minutes=3)
 
+class security_toke(models.Model):
+    """
+    Model representing the token for security.
+    """
+    userid = models.ForeignKey(Register, on_delete=models.CASCADE)
+    token = models.CharField(max_length=11)
+
+    def __str__(self):
+        return f"{self.userid} {self.token}"
 
 # Added a blank newline to satisfy Pylint

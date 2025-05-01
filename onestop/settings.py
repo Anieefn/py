@@ -79,11 +79,10 @@ WSGI_APPLICATION = 'onestop.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.getenv('MYSQL_DATABASE', 'onestop2'),
-        'USER': os.getenv('DATABASE_USERNAME', 'root'),
-        'PASSWORD': os.getenv('DATABASE_PASSWORD', 'root123@123'),
-        'HOST': os.getenv('DATABASE_HOST', 'mysql'),
-        'PORT': os.getenv('DATABASE_PORT', '3306'),
+        'NAME':  'onestop2',
+        'USER':  'root',
+        'PASSWORD': 'root',
+        'PORT':'3306',
     }
 }
 
@@ -132,12 +131,25 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-RAZORPAY_KEY_ID = 'rzp_test_wRSEWv3TpM7fQy'
-RAZORPAY_KEY_SECRET = 'CkqETwwL85SWW4UrpNI8FkU0'
+import environ
 
-# SMTP for email
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'  # Your email host (e.g., Gmail, Outlook)
-EMAIL_PORT = 587  # SMTP port (usually 587 for TLS) or 587
-EMAIL_USE_TLS = True  # Use TLS for secure communication
+# Initialize environment variables
+env = environ.Env()
+environ.Env.read_env(".env")  # Reads from .env file
 
+# Razorpay Credentials
+RAZORPAY_KEY_ID = env("RAZORPAY_KEY_ID")
+RAZORPAY_KEY_SECRET = env("RAZORPAY_KEY_SECRET")
+
+# SMTP for Email
+EMAIL_BACKEND = env("EMAIL_BACKEND")
+EMAIL_HOST = env("EMAIL_HOST")
+EMAIL_PORT = env.int("EMAIL_PORT")
+EMAIL_USE_TLS = env.bool("EMAIL_USE_TLS")
+EMAIL_HOST_USER = env("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
+
+# Twilio Credentials
+TWILIO_ACCOUNT_SID = env("TWILIO_ACCOUNT_SID")
+TWILIO_AUTH_TOKEN = env("TWILIO_AUTH_TOKEN")
+TWILIO_PHONE_NUMBER = env("TWILIO_PHONE_NUMBER")
